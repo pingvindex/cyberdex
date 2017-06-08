@@ -38,7 +38,7 @@ func main() {
 		case "привет":
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, "привет, не узнал тебя")
 		default:
-			message = tgbotapi.NewMessage(update.Message.Chat.ID, "ты пидор")
+			message = tgbotapi.NewMessage(update.Message.Chat.ID, "я пока очень туп. не знаю, что ответить ):")
 		}
 
 		bot.Send(message)
