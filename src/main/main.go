@@ -2,12 +2,13 @@ package main
 
 import (
 	"log"
-	"gopkg.in/telegram-bot-api.v4"
-	"os"
 	"net/http"
+	"os"
+
+	"gopkg.in/telegram-bot-api.v4"
 )
 
-webhookURL := "https://cyberdex.herokuapp.com/"
+const webhookURL = "https://cyberdex.herokuapp.com/"
 
 func main() {
 	log.Println("Bot alives")
@@ -16,7 +17,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	
+
 	bot.Debug = true
 
 	log.Printf("Authorized on account %s", bot.Self.UserName)
@@ -37,7 +38,7 @@ func main() {
 		case "привет":
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, "привет, не узнал тебя")
 		default:
-			message= tgbotapi.NewMessage(update.Message.Chat.ID, "ты пидор")
+			message = tgbotapi.NewMessage(update.Message.Chat.ID, "ты пидор")
 		}
 
 		bot.Send(message)
