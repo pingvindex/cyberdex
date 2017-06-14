@@ -39,7 +39,7 @@ func main() {
 		switch update.Message.Text {
 		case "привет":
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, "привет, не узнал тебя")
-		case "бросить купить:":
+		case "/dice":
 			dice := strconv.Itoa(rand.Int()%6 + 1)
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, dice)
 		default:
