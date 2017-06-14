@@ -2,8 +2,10 @@ package main
 
 import (
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
+	"strconv"
 
 	"gopkg.in/telegram-bot-api.v4"
 )
@@ -37,6 +39,9 @@ func main() {
 		switch update.Message.Text {
 		case "привет":
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, "привет, не узнал тебя")
+		case "бросить купить:":
+			dice := strconv.Itoa(rand.Int()%6 + 1)
+			message = tgbotapi.NewMessage(update.Message.Chat.ID, dice)
 		default:
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, "я пока очень туп. не знаю, что ответить ):")
 		}
