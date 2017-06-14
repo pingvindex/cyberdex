@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 
 	"gopkg.in/telegram-bot-api.v4"
 )
@@ -36,7 +37,9 @@ func main() {
 		var message tgbotapi.MessageConfig
 		log.Println("Received text", update.Message.Text)
 
-		switch update.Message.Text {
+		incoming := strings.Split(update.Message.Text, " ")
+
+		switch incoming[0] {
 		case "привет":
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, "привет, не узнал тебя")
 		case "/dice":
