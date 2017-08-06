@@ -42,11 +42,13 @@ func main() {
 		switch incoming[0] {
 		case "привет":
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, "привет, не узнал тебя")
+		case "/w":
+			message = tgbotapi.NewMessage(update.Message.Chat.ID, "место для погоды")
 		case "/dice":
 			dice := strconv.Itoa(rand.Int()%6 + 1)
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, dice)
 		default:
-			message = tgbotapi.NewMessage(update.Message.Chat.ID, "я пока очень туп. не знаю, что ответить ):")
+			message = tgbotapi.NewMessage(update.Message.Chat.ID, "не знаю, что ответить ):")
 		}
 
 		bot.Send(message)
