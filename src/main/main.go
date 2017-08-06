@@ -1,6 +1,7 @@
 package main
 
 import (
+	"io/ioutil"
 	"log"
 	"math/rand"
 	"net/http"
@@ -43,7 +44,17 @@ func main() {
 		case "привет":
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, "привет, не узнал тебя")
 		case "/w":
-			message = tgbotapi.NewMessage(update.Message.Chat.ID, "место для погоды")
+			lat := strconv.FormatFloat(update.Message.Location.Latitude, 'f', -1, 64)
+			lgt := strconv.FormatFloat(update.Message.Location.Longitude, 'f', -1, 64)
+			resp, err := http.Get("api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lgt)
+			if err != nil {
+				log.Println("Данные о погоде недоступны")
+			}
+			body, err := ioutil.ReadAll(resp.Body)
+			if err != nil {
+				log.Println("Данные о погоде недоступны")
+			}
+			message = tgbotapi.NewMessage(update.Message.Chat.ID, string(body))
 		case "/dice":
 			dice := strconv.Itoa(rand.Int()%6 + 1)
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, dice)
