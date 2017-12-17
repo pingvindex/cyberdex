@@ -44,9 +44,7 @@ func main() {
 		case "привет":
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, "привет, не узнал тебя")
 		case "/w":
-			lat := strconv.FormatFloat(update.Message.Location.Latitude, 'f', -1, 64)
-			lgt := strconv.FormatFloat(update.Message.Location.Longitude, 'f', -1, 64)
-			resp, err := http.Get("api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lgt)
+			resp, err := http.Get("http://api.openweathermap.org/data/2.5/weather?q=Moscow&APPID=7a3937709a28279ddeca2d281dec984f")
 			if err != nil {
 				log.Println("Данные о погоде недоступны")
 			}
