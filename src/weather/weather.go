@@ -83,9 +83,9 @@ func GetWeather() string {
 
 	err = json.Unmarshal(body, &weather)
 	//s := ""
-	// if err != nil {
-	// 	s += "Данные о погоде испорчены:\n" + string(body) + "\n"
-	// }
+	if err != nil {
+		return "Данные о погоде невалидны:\n" + string(body)
+	}
 	result := "" + weather.Weather[0].Description + ", температура"
 	if weather.Main.TempMin >= 0 {
 		result += " +" + strconv.FormatFloat(weather.Main.TempMin, 'f', -1, 64)
@@ -97,6 +97,6 @@ func GetWeather() string {
 	} else {
 		result += " " + strconv.FormatFloat(weather.Main.TempMax, 'f', -1, 64)
 	}
-	result += "ветер " + strconv.FormatFloat(weather.Wind.Speed, 'f', -1, 64) + " м/с"
+	result += ", ветер " + strconv.FormatFloat(weather.Wind.Speed, 'f', -1, 64) + " м/с"
 	return result
 }
