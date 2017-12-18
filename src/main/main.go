@@ -7,7 +7,6 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"weather"
 
 	"gopkg.in/telegram-bot-api.v4"
 )
@@ -42,9 +41,9 @@ func main() {
 
 		switch incoming[0] {
 		case "/w", "/weather":
-			lat, lgt := update.Message.Location
-			lat, lgt = strconv.FormatFloat(lat, 'f', -1, 64), strconv.FormatFloat(lgt, 'f', -1, 64)
-			message = tgbotapi.NewMessage(update.Message.Chat.ID, weather.GetWeather(lat, lgt))
+			lat, lgt := update.Message.Location.Latitude, update.Message.Location.Longitude
+			lats, lgts := strconv.FormatFloat(lat, 'f', -1, 64), strconv.FormatFloat(lgt, 'f', -1, 64)
+			message = tgbotapi.NewMessage(update.Message.Chat.ID, lats+lgts)
 		case "/d", "/dice":
 			dice := strconv.Itoa(rand.Int()%6 + 1)
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, dice)
