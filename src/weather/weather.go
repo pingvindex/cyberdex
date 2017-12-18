@@ -10,8 +10,8 @@ import (
 
 // CoordType is structure of coordinates
 type CoordType struct {
-	Lat int `json:"lat"`
-	Lgt int `json:"lgt"`
+	Lat float64 `json:"lat"`
+	Lgt float64 `json:"lgt"`
 }
 
 // Info ...
@@ -82,9 +82,10 @@ func GetWeather() string {
 	weather := RespParam{}
 
 	err = json.Unmarshal(body, &weather)
-	//s := ""
+
 	if err != nil {
-		return "Данные о погоде невалидны:\n" + string(body) + "\n" + err.Error()
+		log.Fatal(err)
+		return "Данные о погоде невалидны:\n"
 	}
 	result := "" + weather.Weather[0].Description + ", температура"
 	if weather.Main.TempMin >= 0 {
