@@ -84,7 +84,7 @@ func GetWeather() string {
 	err = json.Unmarshal(body, &weather)
 	//s := ""
 	if err != nil {
-		return "Данные о погоде невалидны:\n" + string(body)
+		return "Данные о погоде невалидны:\n" + string(body) + "\n" + err.Error()
 	}
 	result := "" + weather.Weather[0].Description + ", температура"
 	if weather.Main.TempMin >= 0 {
