@@ -82,8 +82,9 @@ func GetWeather() string {
 	weather := RespParam{}
 
 	err = json.Unmarshal(body, &weather)
+	s := ""
 	if err != nil {
-		return "Данные о погоде испорчены:\n" + string(body)
+		s += "Данные о погоде испорчены:\n" + string(body) + "\n"
 	}
 	result := "" + weather.Weather[0].Description + ", температура"
 	if weather.Main.TempMin >= 0 {
@@ -96,5 +97,5 @@ func GetWeather() string {
 	} else {
 		result += " " + strconv.FormatFloat(weather.Main.TempMax, 'E', -1, 64)
 	}
-	return result
+	return s + result
 }
