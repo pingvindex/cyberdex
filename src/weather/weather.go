@@ -34,7 +34,7 @@ type MainStruct struct {
 // WindStruct ...
 type WindStruct struct {
 	Speed float64 `json:"speed"`
-	Def   int     `json:"deg"`
+	Deg   int     `json:"deg"`
 }
 
 // CloudStruct ...
@@ -82,20 +82,21 @@ func GetWeather() string {
 	weather := RespParam{}
 
 	err = json.Unmarshal(body, &weather)
-	s := ""
-	if err != nil {
-		s += "Данные о погоде испорчены:\n" + string(body) + "\n"
-	}
+	//s := ""
+	// if err != nil {
+	// 	s += "Данные о погоде испорчены:\n" + string(body) + "\n"
+	// }
 	result := "" + weather.Weather[0].Description + ", температура"
 	if weather.Main.TempMin >= 0 {
-		result += " +" + strconv.FormatFloat(weather.Main.TempMin, 'E', -1, 64)
+		result += " +" + strconv.FormatFloat(weather.Main.TempMin, 'f', -1, 64)
 	} else {
-		result += " " + strconv.FormatFloat(weather.Main.TempMin, 'E', -1, 64)
+		result += " " + strconv.FormatFloat(weather.Main.TempMin, 'f', -1, 64)
 	}
 	if weather.Main.TempMax >= 0 {
-		result += " +" + strconv.FormatFloat(weather.Main.TempMax, 'E', -1, 64)
+		result += " +" + strconv.FormatFloat(weather.Main.TempMax, 'f', -1, 64)
 	} else {
-		result += " " + strconv.FormatFloat(weather.Main.TempMax, 'E', -1, 64)
+		result += " " + strconv.FormatFloat(weather.Main.TempMax, 'f', -1, 64)
 	}
-	return s + result
+	result += "ветер " + strconv.FormatFloat(weather.Wind.Speed, 'f', -1, 64) + " м/с"
+	return result
 }
