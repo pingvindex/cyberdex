@@ -41,15 +41,14 @@ func main() {
 		incoming := strings.Split(update.Message.Text, " ")
 
 		switch incoming[0] {
-		case "привет":
-			message = tgbotapi.NewMessage(update.Message.Chat.ID, "привет, не узнал тебя")
-		case "/w":
+		case "/w", "/weather":
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, weather.GetWeather())
-		case "/dice":
+		case "/d", "/dice":
 			dice := strconv.Itoa(rand.Int()%6 + 1)
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, dice)
 		default:
-			message = tgbotapi.NewMessage(update.Message.Chat.ID, "не знаю, что ответить ):")
+			message = tgbotapi.NewMessage(update.Message.Chat.ID,
+				"Команды для бота:\n\t/w, /weather\t\tПоказать погоду в Москве\n\t/d, /dice\t\tБросить кость, результат от 1 до 6")
 		}
 
 		bot.Send(message)
