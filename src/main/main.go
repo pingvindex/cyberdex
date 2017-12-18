@@ -42,7 +42,9 @@ func main() {
 
 		switch incoming[0] {
 		case "/w", "/weather":
-			message = tgbotapi.NewMessage(update.Message.Chat.ID, weather.GetWeather())
+			lat, lgt := update.Message.Location
+			lat, lgt = strconv.FormatFloat(lat, 'f', -1, 64), strconv.FormatFloat(lgt, 'f', -1, 64)
+			message = tgbotapi.NewMessage(update.Message.Chat.ID, weather.GetWeather(lat, lgt))
 		case "/d", "/dice":
 			dice := strconv.Itoa(rand.Int()%6 + 1)
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, dice)

@@ -69,9 +69,9 @@ type RespParam struct {
 }
 
 // GetWeather returns info about current weather in Moscow
-func GetWeather() string {
+func GetWeather(lat string, lgt string) string {
 	c := http.Client{}
-	resp, err := c.Get("http://api.openweathermap.org/data/2.5/weather?q=Moscow&units=metric&lang=ru&APPID=7a3937709a28279ddeca2d281dec984f")
+	resp, err := c.Get("http://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lgt=" + lgt + "&units=metric&lang=ru&APPID=7a3937709a28279ddeca2d281dec984f")
 	if err != nil {
 		log.Println("Запрос не удался")
 	}
