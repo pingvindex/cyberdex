@@ -55,7 +55,7 @@ type SysStruct struct {
 // RespParam contains information about weather
 type RespParam struct {
 	Coord      CoordType   `json:"coord"`
-	Weather    Info        `json:"weather"`
+	Weather    []Info      `json:"weather"`
 	Base       string      `json:"base"`
 	Main       MainStruct  `json:"main"`
 	Visibility int         `json:"visibility"`
@@ -85,7 +85,7 @@ func GetWeather() string {
 	if err != nil {
 		return "Данные о погоде испорчены:\n" + string(body)
 	}
-	result := "" + weather.Weather.Description + ", температура"
+	result := "" + weather.Weather[0].Description + ", температура"
 	if weather.Main.TempMin >= 0 {
 		result += " +" + strconv.FormatFloat(weather.Main.TempMin, 'E', -1, 64)
 	} else {
