@@ -73,7 +73,7 @@ func GetWeather() string {
 	c := http.Client{}
 	resp, err := c.Get("http://api.openweathermap.org/data/2.5/weather?q=Moscow&units=metric&lang=ru&APPID=7a3937709a28279ddeca2d281dec984f")
 	if err != nil {
-		log.Println("Данные о погоде недоступны1")
+		log.Println("Запрос не удался")
 	}
 	defer resp.Body.Close()
 
@@ -83,7 +83,7 @@ func GetWeather() string {
 
 	err = json.Unmarshal(body, &weather)
 	if err != nil {
-		return "Данные о погоде недоступны2"
+		return "Данные о погоде испорчены:\n" + string(body)
 	}
 	result := "" + weather.Weather.Description + ", температура"
 	if weather.Main.TempMin >= 0 {
