@@ -1,6 +1,7 @@
 package main
 
 import (
+	"chgk"
 	"log"
 	"math/rand"
 	"net/http"
@@ -8,9 +9,6 @@ import (
 	"strconv"
 	"strings"
 	"weather"
-	"chgk"
-
-	"gopkg.in/telegram-bot-api.v4"
 )
 
 const webhookURL = "https://cyberdex.herokuapp.com/"
@@ -51,10 +49,9 @@ func main() {
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, chgk.GetInfo())
 		default:
 			message = tgbotapi.NewMessage(update.Message.Chat.ID,
-				"Команды для бота:
-				\n\t/w, /weather\t\tПоказать погоду в Москве
-				\n\t/d, /dice\t\tБросить кость, результат от 1 до 6
-				\n\t/ch, /chgkinfo\t\tИнформация обо мне с сайта рейтинга чгк")
+				"Команды для бота:\n\t/w, /weather\t\tПоказать погоду в Москве"+
+					"\n\t/d, /dice\t\tБросить кость, результат от 1 до 6"+
+					"\n\t/ch, /chgkinfo\t\tИнформация обо мне с сайта рейтинга чгк")
 		}
 
 		bot.Send(message)
