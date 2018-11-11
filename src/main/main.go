@@ -8,6 +8,7 @@ import (
 	"strconv"
 	"strings"
 	"weather"
+	"chgk"
 
 	"gopkg.in/telegram-bot-api.v4"
 )
@@ -46,9 +47,14 @@ func main() {
 		case "/d", "/dice":
 			dice := strconv.Itoa(rand.Int()%6 + 1)
 			message = tgbotapi.NewMessage(update.Message.Chat.ID, dice)
+		case "/ch", "/chgk_info":
+			message = tgbotapi.NewMessage(update.Message.Chat.ID, chgk.GetInfo())
 		default:
 			message = tgbotapi.NewMessage(update.Message.Chat.ID,
-				"Команды для бота:\n\t/w, /weather\t\tПоказать погоду в Москве\n\t/d, /dice\t\tБросить кость, результат от 1 до 6")
+				"Команды для бота:
+				\n\t/w, /weather\t\tПоказать погоду в Москве
+				\n\t/d, /dice\t\tБросить кость, результат от 1 до 6
+				\n\t/ch, /chgkinfo\t\tИнформация обо мне с сайта рейтинга чгк")
 		}
 
 		bot.Send(message)
